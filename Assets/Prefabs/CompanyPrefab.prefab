@@ -1001,6 +1001,7 @@ MonoBehaviour:
   priceText: {fileID: 3213358104081979895}
   buyBtn: {fileID: 6366222705202224537}
   sellBtn: {fileID: 6780843586644845487}
+  ownedStockCounter: {fileID: 6087842861175014310}
 --- !u!1 &6483129746557957819
 GameObject:
   m_ObjectHideFlags: 0

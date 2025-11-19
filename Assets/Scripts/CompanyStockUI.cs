@@ -8,6 +8,7 @@ public class CompanyStockUI : MonoBehaviour
     public TextMeshProUGUI priceText;
     public Button buyBtn;
     public Button sellBtn;
+    public TextMeshProUGUI ownedStockCounter;
 
     private Company company;
 

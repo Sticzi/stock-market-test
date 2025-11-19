@@ -16,9 +16,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI logText;
 
-    [Header("Turn UI")]
+    //[Header("Turn UI")]
     public TextMeshProUGUI turnText;
-    public Button endTurnButton;
+    //public Button endTurnButton;
 
     void Awake()
     {
@@ -27,21 +27,24 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        endTurnButton.onClick.AddListener(() => GameTurnManager.Instance.EndTurn());
+        //endTurnButton.onClick.AddListener(() => GameTurnManager.Instance.EndTurn());
         GenerateRows();
         UpdateCompanyList();
-        UpdatePortfolio(null, PlayerWallet.Instance.money);
+        UpdateWallet(null, PlayerWallet.Instance.money);
         UpdateTurnUI(1, GameTurnManager.Instance.maxTurns);
     }
 
     void GenerateRows()
     {
-        foreach (var c in MarketManager.Instance.companies)
+        int rowCounter = 0;
+        foreach (var company in MarketManager.Instance.companies)
         {
-            var rowObj = Instantiate(companyRowPrefab, companyListParent);
+            Vector2 position = companyListParent.transform.position + new Vector3(0, -rowCounter * 2);
+            var rowObj = Instantiate(companyRowPrefab, position, Quaternion.identity, companyListParent);
             var row = rowObj.GetComponent<CompanyStockUI>();
-            row.Setup(c);
+            row.Setup(company);
             companyUI.Add(row);
+            rowCounter++;
         }
     }
 
@@ -51,7 +54,7 @@ public class UIManager : MonoBehaviour
             r.Refresh();
     }
 
-    public void UpdatePortfolio(Dictionary<Company, int> owned, float money)
+    public void UpdateWallet(Dictionary<Company, int> owned, float money)
     {
         moneyText.text = $" {money:F2}";
     }

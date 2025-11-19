@@ -29,7 +29,7 @@ public class PlayerWallet : MonoBehaviour
         owned[c]++;
 
         UIManager.Instance.AddLog($"Kupiono 1 akcjê: {c.companyName}");
-        UIManager.Instance.UpdatePortfolio(owned, money);
+        UIManager.Instance.UpdateWallet(owned, money);
     }
 
     public void Sell(Company c)
@@ -44,6 +44,6 @@ public class PlayerWallet : MonoBehaviour
         money += c.currentPrice;
 
         UIManager.Instance.AddLog($"Sprzedano 1 akcjê: {c.companyName}");
-        UIManager.Instance.UpdatePortfolio(owned, money);
+        UIManager.Instance.UpdateWallet(owned, money);
     }
 }
