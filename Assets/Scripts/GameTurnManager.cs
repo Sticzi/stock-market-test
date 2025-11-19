@@ -14,6 +14,12 @@ public class GameTurnManager : MonoBehaviour
 
     public void EndTurn()
     {
+        if (currentTurn > maxTurns)
+        {
+            UIManager.Instance.AddLog("Koniec gry — osi¹gniêto limit tur.");
+            return;
+        }
+
         currentTurn++;
 
         // 1. Zdarzenie rynkowe (losowe)
@@ -25,10 +31,7 @@ public class GameTurnManager : MonoBehaviour
         // UI
         UIManager.Instance.UpdateTurnUI(currentTurn, maxTurns);
 
-        if (currentTurn > maxTurns)
-        {
-            UIManager.Instance.AddLog("Koniec gry — osi¹gniêto limit tur.");
-        }
+        
     }
 }
 

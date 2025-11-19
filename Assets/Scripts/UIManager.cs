@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     [Header("Company List")]
     public Transform companyListParent;
     public GameObject companyRowPrefab;
-    private List<CompanyStockUI> companyUI = new();
+    private Dictionary<Company, CompanyStockUI> companyUI = new();
 
     [Header("Player UI")]
     public TextMeshProUGUI moneyText;
@@ -26,12 +26,17 @@ public class UIManager : MonoBehaviour
     }
 
     void Start()
-    {
-        //endTurnButton.onClick.AddListener(() => GameTurnManager.Instance.EndTurn());
+    {        
         GenerateRows();
         UpdateCompanyList();
         UpdateWallet(null, PlayerWallet.Instance.money);
         UpdateTurnUI(1, GameTurnManager.Instance.maxTurns);
+        
+        foreach (var company in companyUI.Values)
+        {
+            company.buyBtn.onClick.AddListener(() => GameTurnManager.Instance.EndTurn());
+            company.sellBtn.onClick.AddListener(() => GameTurnManager.Instance.EndTurn());
+        }
     }
 
     void GenerateRows()
@@ -43,25 +48,36 @@ public class UIManager : MonoBehaviour
             var rowObj = Instantiate(companyRowPrefab, position, Quaternion.identity, companyListParent);
             var row = rowObj.GetComponent<CompanyStockUI>();
             row.Setup(company);
-            companyUI.Add(row);
+            companyUI.Add(company, row);
             rowCounter++;
         }
     }
 
     public void UpdateCompanyList()
     {
-        foreach (var r in companyUI)
-            r.Refresh();
+        foreach (var row in companyUI.Values)
+            row.Refresh();
     }
 
     public void UpdateWallet(Dictionary<Company, int> owned, float money)
     {
         moneyText.text = $" {money:F2}";
+
+        if (owned == null) return;
+
+        foreach (var c in owned.Keys)
+        {
+            if (companyUI.TryGetValue(c, out var ui))
+            {
+                ui.ownedStocks = owned[c];
+            }
+        }
     }
 
     public void UpdateTurnUI(int turn, int maxTurn)
     {
         turnText.text = $"Tura {turn}/{maxTurn}";
+        logText.text = "\n" + $"Tura {turn}/{maxTurn}" + "\n" + logText.text;
     }
 
     public void AddLog(string t)

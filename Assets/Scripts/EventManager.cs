@@ -5,6 +5,7 @@ public class EventManager : MonoBehaviour
     public static EventManager Instance;
 
     public float currentEventModifier = 1f;
+    public string currentEventDescription = "Rynek stabilny.";
 
     void Awake()
     {
@@ -17,18 +18,19 @@ public class EventManager : MonoBehaviour
 
         if (roll < 20)
         {
-            currentEventModifier = 2f;
-            UIManager.Instance.AddLog("Boom gospodarczy! (+100%)");
+            currentEventModifier = 5f;
+            currentEventDescription = "Rynek niestabilny! (du¿e zmiany)";
         }
-        else if (roll < 40)
+        else if (roll < 70)
         {
-            currentEventModifier = 0.5f;
-            UIManager.Instance.AddLog("Kryzys rynkowy! (-50%)");
+            currentEventModifier = 1f;
+            currentEventDescription = "Rynek stabilny! (drobne zmiany)";
         }
         else
         {
-            currentEventModifier = 1f;
-            UIManager.Instance.AddLog("Rynek stabilny.");
+            currentEventModifier = 0f;
+            currentEventDescription = "Rynek w stagnacji.";
         }
+        UIManager.Instance.AddLog($"Zdarzenie rynkowe: {currentEventDescription}");
     }
 }

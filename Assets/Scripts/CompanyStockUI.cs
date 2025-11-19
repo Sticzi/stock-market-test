@@ -9,6 +9,15 @@ public class CompanyStockUI : MonoBehaviour
     public Button buyBtn;
     public Button sellBtn;
     public TextMeshProUGUI ownedStockCounter;
+    public int ownedStocks = 0;
+    public Image trendIcon;
+
+    public Button buyMultiplier;
+    public Button sellMultiplier;
+
+    [SerializeField] private Sprite upTrendSprite;
+    [SerializeField] private Sprite downTrendSprite;
+    [SerializeField] private Sprite neutralTrendSprite;
 
     private Company company;
 
@@ -26,5 +35,6 @@ public class CompanyStockUI : MonoBehaviour
     public void Refresh()
     {
         priceText.text = $"{company.currentPrice:F2}";
+        ownedStockCounter.text = "Stocks Owned: " + ownedStocks.ToString();
     }
 }
