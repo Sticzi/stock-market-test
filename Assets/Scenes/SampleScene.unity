@@ -924,6 +924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   currentEventModifier: 1
+  currentEventDescription: Rynek stabilny.
 --- !u!114 &833525550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -942,14 +943,6 @@ MonoBehaviour:
     currentPrice: 120
     volatility: 5
   - companyName: JQP US
-    basePrice: 100
-    currentPrice: 120
-    volatility: 5
-  - companyName: Indie Games Ender
-    basePrice: 100
-    currentPrice: 120
-    volatility: 5
-  - companyName: PlayWay
     basePrice: 100
     currentPrice: 120
     volatility: 5
@@ -1125,7 +1118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -683.75, y: -111.04999}
+  m_AnchoredPosition: {x: -683.74994, y: -111.04999}
   m_SizeDelta: {x: -1463.67, y: -320.92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1112051024

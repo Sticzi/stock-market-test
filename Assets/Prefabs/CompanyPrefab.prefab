@@ -1003,9 +1003,11 @@ MonoBehaviour:
   sellBtn: {fileID: 6780843586644845487}
   ownedStockCounter: {fileID: 6087842861175014310}
   ownedStocks: 0
+  buyMultiplierButton: {fileID: 1337157191288491499}
+  buyMultiplier: 1
+  sellMultiplierButton: {fileID: 5873804512486366639}
+  sellMultiplier: 1
   trendIcon: {fileID: 1451793561305815625}
-  buyMultiplier: {fileID: 1337157191288491499}
-  sellMultiplier: {fileID: 5873804512486366639}
   upTrendSprite: {fileID: -9164897200181677204, guid: f4d816b486593dd4c830f288e4727798, type: 3}
   downTrendSprite: {fileID: 508591715825662441, guid: d444079ac6a034242ab3a715388b3f5f, type: 3}
   neutralTrendSprite: {fileID: -5467703838845641693, guid: 33d2e1414d668ec49b3204bc77614158, type: 3}
@@ -1212,9 +1214,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '1x
-
-'
+  m_text: x1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1350,9 +1350,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '1x
-
-'
+  m_text: x1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

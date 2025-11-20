@@ -13,26 +13,28 @@ public class PlayerWallet : MonoBehaviour
         Instance = this;
     }
 
-    public void Buy(Company c)
+    public void Buy(Company c, int multiplier)
     {
-        if (money < c.currentPrice)
+        float totalPrice = c.currentPrice * multiplier;
+
+        if (money < totalPrice)
         {
             UIManager.Instance.AddLog("Za ma³o pieniêdzy.");
             return;
         }
 
-        money -= c.currentPrice;
+        money -= totalPrice;
 
         if (!owned.ContainsKey(c))
             owned[c] = 0;
 
-        owned[c]++;
+        owned[c] += multiplier;
 
-        UIManager.Instance.AddLog($"Kupiono 1 akcjê: {c.companyName}");
+        UIManager.Instance.AddLog($"Kupiono {multiplier} akcji: {c.companyName}");
         UIManager.Instance.UpdateWallet(owned, money);
     }
 
-    public void Sell(Company c)
+    public void Sell(Company c, int multiplier)
     {
         if (!owned.ContainsKey(c) || owned[c] == 0)
         {
@@ -40,10 +42,10 @@ public class PlayerWallet : MonoBehaviour
             return;
         }
 
-        owned[c]--;
-        money += c.currentPrice;
+        owned[c] -= multiplier;
+        money += c.currentPrice * multiplier;
 
-        UIManager.Instance.AddLog($"Sprzedano 1 akcjê: {c.companyName}");
+        UIManager.Instance.AddLog($"Sprzedano {multiplier} akcji: {c.companyName}");
         UIManager.Instance.UpdateWallet(owned, money);
     }
 }
