@@ -40,6 +40,9 @@ public class PlayerWallet : MonoBehaviour
 
     public void Sell(CompanyStockUI companyUI)
     {
+        if (GameTurnManager.Instance.IsGameOver)
+            return;
+
         if (!ownedStockUI.ContainsKey(companyUI) || ownedStockUI[companyUI] == 0)
         {
             UIManager.Instance.AddLog("Nie masz akcji tej firmy.");
