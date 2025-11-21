@@ -4,12 +4,19 @@ public class GameTurnManager : MonoBehaviour
 {
     public static GameTurnManager Instance;
 
-    public int currentTurn = 1;
-    public int maxTurns = 20;
+    private int currentTurn = 1;
+    [SerializeField] private int maxTurns = 50;
+    public bool IsGameOver => currentTurn >= maxTurns;
 
     void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        UIManager.Instance.SetupGame();
+        UIManager.Instance.UpdateTurnUI(1, maxTurns);
     }
 
     public void EndTurn()
@@ -28,7 +35,7 @@ public class GameTurnManager : MonoBehaviour
         // 2. Aktualizacja cen firm
         MarketManager.Instance.UpdateMarketTurnBased();
 
-        // UI
+        // 3. update UI
         UIManager.Instance.UpdateTurnUI(currentTurn, maxTurns);
 
         

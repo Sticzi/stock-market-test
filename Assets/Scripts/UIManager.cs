@@ -10,33 +10,23 @@ public class UIManager : MonoBehaviour
     [Header("Company List")]
     public Transform companyListParent;
     public GameObject companyRowPrefab;
-    private Dictionary<Company, CompanyStockUI> companyUI = new();
+    private readonly List<CompanyStockUI> companyUI = new();
 
     [Header("Player UI")]
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI logText;
-
-    //[Header("Turn UI")]
     public TextMeshProUGUI turnText;
-    //public Button endTurnButton;
 
     void Awake()
     {
         Instance = this;
-    }
+    }    
 
-    void Start()
-    {        
+    public void SetupGame()
+    {
         GenerateRows();
         UpdateCompanyList();
         UpdateWallet(null, PlayerWallet.Instance.money);
-        UpdateTurnUI(1, GameTurnManager.Instance.maxTurns);
-        
-        foreach (var company in companyUI.Values)
-        {
-            company.buyBtn.onClick.AddListener(() => GameTurnManager.Instance.EndTurn());
-            company.sellBtn.onClick.AddListener(() => GameTurnManager.Instance.EndTurn());
-        }
     }
 
     void GenerateRows()
@@ -48,18 +38,18 @@ public class UIManager : MonoBehaviour
             var rowObj = Instantiate(companyRowPrefab, position, Quaternion.identity, companyListParent);
             var row = rowObj.GetComponent<CompanyStockUI>();
             row.Setup(company);
-            companyUI.Add(company, row);
+            companyUI.Add(row);
             rowCounter++;
         }
     }
 
     public void UpdateCompanyList()
     {
-        foreach (var row in companyUI.Values)
+        foreach (var row in companyUI)
             row.Refresh();
     }
 
-    public void UpdateWallet(Dictionary<Company, int> owned, float money)
+    public void UpdateWallet(Dictionary<CompanyStockUI, int> owned, float money)
     {
         moneyText.text = $" {money:F2}";
 
@@ -67,10 +57,7 @@ public class UIManager : MonoBehaviour
 
         foreach (var c in owned.Keys)
         {
-            if (companyUI.TryGetValue(c, out var ui))
-            {
-                ui.ownedStocks = owned[c];
-            }
+            c.ownedStocks = owned[c];
         }
     }
 

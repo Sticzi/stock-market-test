@@ -6,16 +6,19 @@ public class PlayerWallet : MonoBehaviour
     public static PlayerWallet Instance;
 
     public float money = 1000f;
-    private Dictionary<Company, int> owned = new();
+    private Dictionary<CompanyStockUI, int> ownedStockUI = new();
 
     void Awake()
     {
         Instance = this;
     }
 
-    public void Buy(Company c, int multiplier)
+    public void Buy(CompanyStockUI companyUI)
     {
-        float totalPrice = c.currentPrice * multiplier;
+        if (GameTurnManager.Instance.IsGameOver) 
+            return;
+
+        float totalPrice = companyUI.company.currentPrice * companyUI.buyMultiplier;
 
         if (money < totalPrice)
         {
@@ -24,28 +27,30 @@ public class PlayerWallet : MonoBehaviour
         }
 
         money -= totalPrice;
+        companyUI.company.playerInfluence += companyUI.buyMultiplier;
 
-        if (!owned.ContainsKey(c))
-            owned[c] = 0;
+        if (!ownedStockUI.ContainsKey(companyUI))
+            ownedStockUI[companyUI] = 0;
 
-        owned[c] += multiplier;
+        ownedStockUI[companyUI] += companyUI.buyMultiplier;
 
-        UIManager.Instance.AddLog($"Kupiono {multiplier} akcji: {c.companyName}");
-        UIManager.Instance.UpdateWallet(owned, money);
+        UIManager.Instance.AddLog($"Kupiono {companyUI.buyMultiplier} akcji: {companyUI.company.companyName}");
+        UIManager.Instance.UpdateWallet(ownedStockUI, money);
     }
 
-    public void Sell(Company c, int multiplier)
+    public void Sell(CompanyStockUI companyUI)
     {
-        if (!owned.ContainsKey(c) || owned[c] == 0)
+        if (!ownedStockUI.ContainsKey(companyUI) || ownedStockUI[companyUI] == 0)
         {
             UIManager.Instance.AddLog("Nie masz akcji tej firmy.");
             return;
         }
 
-        owned[c] -= multiplier;
-        money += c.currentPrice * multiplier;
+        companyUI.company.playerInfluence -= companyUI.sellMultiplier;
+        ownedStockUI[companyUI] -= companyUI.sellMultiplier;
+        money += companyUI.company.currentPrice * companyUI.sellMultiplier;
 
-        UIManager.Instance.AddLog($"Sprzedano {multiplier} akcji: {c.companyName}");
-        UIManager.Instance.UpdateWallet(owned, money);
+        UIManager.Instance.AddLog($"Sprzedano {companyUI.sellMultiplier} akcji: {companyUI.company.companyName}");
+        UIManager.Instance.UpdateWallet(ownedStockUI, money);
     }
 }

@@ -23,15 +23,17 @@ public class CompanyStockUI : MonoBehaviour
     [SerializeField] private Sprite downTrendSprite;
     [SerializeField] private Sprite neutralTrendSprite;
 
-    private Company company;
+    public Company company;
 
     public void Setup(Company c)
     {
         company = c;
         nameText.text = c.companyName;
 
-        buyBtn.onClick.AddListener(() => PlayerWallet.Instance.Buy(company, buyMultiplier));
-        sellBtn.onClick.AddListener(() => PlayerWallet.Instance.Sell(company, sellMultiplier));
+        buyBtn.onClick.AddListener(() => PlayerWallet.Instance.Buy(this));
+        sellBtn.onClick.AddListener(() => PlayerWallet.Instance.Sell(this));
+        buyBtn.onClick.AddListener(() => GameTurnManager.Instance.EndTurn());
+        sellBtn.onClick.AddListener(() => GameTurnManager.Instance.EndTurn());
 
         buyMultiplierButton.onClick.AddListener(OnClickMultiplierBuy);
         sellMultiplierButton.onClick.AddListener(OnClickMultiplierSell);
@@ -40,10 +42,8 @@ public class CompanyStockUI : MonoBehaviour
     }
     private int CycleMultiplier(int current)
     {
-        // find current index
         int index = System.Array.IndexOf(multiplierCycle, current);
 
-        // move to next, wrap around
         index = (index + 1) % multiplierCycle.Length;
 
         return multiplierCycle[index];
@@ -65,5 +65,11 @@ public class CompanyStockUI : MonoBehaviour
     {
         priceText.text = $"{company.currentPrice:F2}";
         ownedStockCounter.text = "Stocks Owned: " + ownedStocks.ToString();
+        if (company.change > 0)
+            trendIcon.sprite = upTrendSprite;
+        else if (company.change < 0)
+            trendIcon.sprite = downTrendSprite;
+        else
+            trendIcon.sprite = neutralTrendSprite;
     }
 }

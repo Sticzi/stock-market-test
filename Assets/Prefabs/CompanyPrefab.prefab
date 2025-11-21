@@ -1011,6 +1011,13 @@ MonoBehaviour:
   upTrendSprite: {fileID: -9164897200181677204, guid: f4d816b486593dd4c830f288e4727798, type: 3}
   downTrendSprite: {fileID: 508591715825662441, guid: d444079ac6a034242ab3a715388b3f5f, type: 3}
   neutralTrendSprite: {fileID: -5467703838845641693, guid: 33d2e1414d668ec49b3204bc77614158, type: 3}
+  company:
+    companyName: 
+    basePrice: 100
+    currentPrice: 100
+    volatility: 2
+    playerInfluence: 0
+    change: 0
 --- !u!1 &6483129746557957819
 GameObject:
   m_ObjectHideFlags: 0

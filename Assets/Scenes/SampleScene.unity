@@ -880,7 +880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   currentTurn: 1
-  maxTurns: 20
+  maxTurns: 50
 --- !u!114 &833525547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -941,11 +941,23 @@ MonoBehaviour:
   - companyName: JQP AI
     basePrice: 100
     currentPrice: 120
-    volatility: 5
-  - companyName: JQP US
+    volatility: 10
+    playerInfluence: 0
+  - companyName: JQB Motors
     basePrice: 100
     currentPrice: 120
     volatility: 5
+    playerInfluence: 0
+  - companyName: JQP US
+    basePrice: 100
+    currentPrice: 120
+    volatility: 7
+    playerInfluence: 0
+  - companyName: JQP INC.
+    basePrice: 100
+    currentPrice: 120
+    volatility: 3
+    playerInfluence: 0
   baseMarketStrength: 2
 --- !u!1 &1087413498
 GameObject:
