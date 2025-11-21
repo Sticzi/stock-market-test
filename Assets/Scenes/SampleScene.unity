@@ -879,7 +879,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c271ff5e573774a45a9ce890abad546d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  currentTurn: 1
+  onTurnEnded:
+    m_PersistentCalls:
+      m_Calls: []
   maxTurns: 50
 --- !u!114 &833525547
 MonoBehaviour:
@@ -923,8 +925,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d453aab89bb39be4ca4974b3e412c445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  currentEventModifier: 1
-  currentEventDescription: Rynek stabilny.
+  events:
+  - companySector: 0
+    eventName: "Prze\u0142om technologiczny"
+    eventStrength: 5
+  - companySector: 8
+    eventName: "Zmiana st\xF3p Procentowych (+)"
+    eventStrength: 2
+  - companySector: 8
+    eventName: "Zmiana st\xF3p Procentowych (-)"
+    eventStrength: -2
+  - companySector: 9
+    eventName: Skandal Korporacyjny
+    eventStrength: -3
+  - companySector: 8
+    eventName: Covid, zamykamy wszystko w pizdu
+    eventStrength: -10
+  onRollEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &833525550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -938,27 +957,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   companies:
-  - companyName: JQP AI
-    basePrice: 100
-    currentPrice: 120
+  - companySector: 0
+    companyName: JQP AI
+    currentPrice: 100
     volatility: 10
     playerInfluence: 0
-  - companyName: JQB Motors
-    basePrice: 100
-    currentPrice: 120
+    change: 0
+  - companySector: 0
+    companyName: JQB Motors
+    currentPrice: 100
     volatility: 5
     playerInfluence: 0
-  - companyName: JQP US
-    basePrice: 100
-    currentPrice: 120
+    change: 0
+  - companySector: 6
+    companyName: JQP US
+    currentPrice: 100
     volatility: 7
     playerInfluence: 0
-  - companyName: JQP INC.
-    basePrice: 100
-    currentPrice: 120
+    change: 0
+  - companySector: 2
+    companyName: JQP INC.
+    currentPrice: 100
     volatility: 3
     playerInfluence: 0
-  baseMarketStrength: 2
+    change: 0
+  baseMarketVolatility: 1
 --- !u!1 &1087413498
 GameObject:
   m_ObjectHideFlags: 0
@@ -993,8 +1016,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0015125, y: 0.00000047684}
-  m_SizeDelta: {x: 456.33, y: 759.08}
+  m_AnchoredPosition: {x: 7.8426, y: 0.00000047684}
+  m_SizeDelta: {x: 682.13, y: 759.08}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1087413500
 MonoBehaviour:
@@ -1130,8 +1153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -683.74994, y: -111.04999}
-  m_SizeDelta: {x: -1463.67, y: -320.92}
+  m_AnchoredPosition: {x: -563.0102, y: -111.04999}
+  m_SizeDelta: {x: -1222.19, y: -320.92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1112051024
 MonoBehaviour:

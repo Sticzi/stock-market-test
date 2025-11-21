@@ -3,17 +3,6 @@ using UnityEngine;
 [System.Serializable]
 public class Company
 {
-    public enum Sector
-    {
-        Technology,
-        Healthcare,
-        Finance,
-        Energy,
-        ConsumerGoods,
-        Utilities,
-        Industrials,
-        Telecommunications
-    }
     public Sector companySector;
     public string companyName;
     public float currentPrice = 100f;
@@ -21,8 +10,9 @@ public class Company
     [HideInInspector]public int playerInfluence = 0;
     [HideInInspector]public float change;
 
-    public void ApplyMarketChange(float strength)
-    {   change = 0f;
+    public void ChangeStockPrice(float strength)
+    {   
+        change = 0f;
         float finalStrength = strength + playerInfluence;
         change = Random.Range(0, volatility) * finalStrength;
         currentPrice = Mathf.Max(1f, currentPrice + change);

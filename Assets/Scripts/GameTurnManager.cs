@@ -1,12 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameTurnManager : MonoBehaviour
 {
     public static GameTurnManager Instance;
 
-    private int currentTurn = 1;
+    [SerializeField] private UnityEvent onTurnEnded = new UnityEvent();
+
+    private int currentTurn = 0;
     [SerializeField] private int maxTurns = 50;
     public bool IsGameOver => currentTurn >= maxTurns;
+
 
     void Awake()
     {
@@ -16,7 +20,10 @@ public class GameTurnManager : MonoBehaviour
     private void Start()
     {
         UIManager.Instance.SetupGame();
-        UIManager.Instance.UpdateTurnUI(1, maxTurns);
+        //UIManager.Instance.UpdateTurnUI(1, maxTurns);
+
+        onTurnEnded.AddListener(EventManager.Instance.RollEvent);
+        onTurnEnded.AddListener(MarketManager.Instance.UpdateMarketTurnBased);
     }
 
     public void EndTurn()
@@ -26,16 +33,10 @@ public class GameTurnManager : MonoBehaviour
             UIManager.Instance.AddLog("Koniec gry — osi¹gniêto limit tur.");
             return;
         }
-
         currentTurn++;
 
-        // 1. Zdarzenie rynkowe (losowe)
-        EventManager.Instance.RollEvent();
+        onTurnEnded.Invoke();
 
-        // 2. Aktualizacja cen firm
-        MarketManager.Instance.UpdateMarketTurnBased();
-
-        // 3. update UI
         UIManager.Instance.UpdateTurnUI(currentTurn, maxTurns);
 
         

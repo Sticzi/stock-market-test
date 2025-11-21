@@ -6,7 +6,7 @@ public class MarketManager : MonoBehaviour
     public static MarketManager Instance;
 
     public List<Company> companies = new();
-    public float baseMarketGrowth = 1f;
+    public float baseMarketVolatility = 1f;
 
     void Awake()
     {
@@ -15,11 +15,8 @@ public class MarketManager : MonoBehaviour
 
     public void UpdateMarketTurnBased()
     {
-        float eventModifier = EventManager.Instance.currentEventModifier;
-        float marketStrength = baseMarketGrowth + eventModifier;
-
         foreach (var c in companies)
-            c.ApplyMarketChange(marketStrength);
+            c.ChangeStockPrice(Random.Range(-baseMarketVolatility, baseMarketVolatility));
 
         UIManager.Instance.UpdateCompanyList();
     }
