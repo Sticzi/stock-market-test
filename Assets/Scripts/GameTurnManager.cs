@@ -20,7 +20,6 @@ public class GameTurnManager : MonoBehaviour
     private void Start()
     {
         UIManager.Instance.SetupGame();
-        //UIManager.Instance.UpdateTurnUI(1, maxTurns);
 
         onTurnEnded.AddListener(MarketManager.Instance.UpdateMarketTurnBased);
         onTurnEnded.AddListener(EventManager.Instance.RollEvent);
