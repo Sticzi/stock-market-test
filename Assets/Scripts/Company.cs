@@ -6,9 +6,11 @@ public class Company
     public Sector companySector;
     public string companyName;
     public float currentPrice = 100f;
+    public float lastTurnPrice = 100;
     [SerializeField] private float volatility = 2f;
     [HideInInspector]public int playerInfluence = 0;
     [HideInInspector]public float change;
+
 
     public void ChangeStockPrice(float strength)
     {   

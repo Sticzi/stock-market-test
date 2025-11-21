@@ -16,8 +16,9 @@ public class MarketManager : MonoBehaviour
     public void UpdateMarketTurnBased()
     {
         foreach (var c in companies)
+        {
+            c.lastTurnPrice = c.currentPrice;
             c.ChangeStockPrice(Random.Range(-baseMarketVolatility, baseMarketVolatility));
-
-        UIManager.Instance.UpdateCompanyList();
+        }
     }
 }

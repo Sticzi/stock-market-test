@@ -22,8 +22,8 @@ public class GameTurnManager : MonoBehaviour
         UIManager.Instance.SetupGame();
         //UIManager.Instance.UpdateTurnUI(1, maxTurns);
 
-        onTurnEnded.AddListener(EventManager.Instance.RollEvent);
         onTurnEnded.AddListener(MarketManager.Instance.UpdateMarketTurnBased);
+        onTurnEnded.AddListener(EventManager.Instance.RollEvent);
     }
 
     public void EndTurn()
@@ -38,8 +38,9 @@ public class GameTurnManager : MonoBehaviour
         onTurnEnded.Invoke();
 
         UIManager.Instance.UpdateTurnUI(currentTurn, maxTurns);
+        UIManager.Instance.UpdateCompanyList();
 
-        
+
     }
 }
 

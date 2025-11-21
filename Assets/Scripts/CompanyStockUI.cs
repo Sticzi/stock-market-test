@@ -65,9 +65,9 @@ public class CompanyStockUI : MonoBehaviour
     {
         priceText.text = $"{company.currentPrice:F2}";
         ownedStockCounter.text = "Stocks Owned: " + ownedStocks.ToString();
-        if (company.change > 0)
+        if (company.lastTurnPrice < company.currentPrice)
             trendIcon.sprite = upTrendSprite;
-        else if (company.change < 0)
+        else if (company.lastTurnPrice > company.currentPrice)
             trendIcon.sprite = downTrendSprite;
         else
             trendIcon.sprite = neutralTrendSprite;
